@@ -30,6 +30,7 @@ func DownloadEtlContents(client *http.Client, courseid int) {
 
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 
+	var count = 0
 	doc.Find(".total_sections .section.main").Each(func(i int, section *goquery.Selection) {
 		sectionName := textContent(section.Find(".sectionname"))
 		section.Find("li.activity").Each(func(i int, activity *goquery.Selection) {
@@ -64,8 +65,10 @@ func DownloadEtlContents(client *http.Client, courseid int) {
 			if downloadError != nil {
 				fmt.Println(downloadError)
 			}
+			count++
 		})
 	})
+	fmt.Printf("Processed %v sections.\n", count)
 }
 
 func cantParseActivityID(idstr string, index int) {

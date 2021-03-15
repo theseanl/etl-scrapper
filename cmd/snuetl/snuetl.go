@@ -14,11 +14,13 @@ func main() {
 	courseIDPtr := flag.Int("course", 0, "ETL course id, as in http://etl.snu.ac.kr/course/view.php?id=<course id>")
 	flag.IntVar(courseIDPtr, "c", *courseIDPtr, "alias for --course")
 
+	flag.Parse()
+
 	client, err := snuetl.SnuLogin(*usernamePtr, *passwordPtr)
 	if err != nil {
 		log.Fatal(nil)
 	}
-	log.Println("Login successful.")
+	log.Printf(`Login successful. Downloading content for an id %v`, *courseIDPtr)
 	snuetl.DownloadEtlContents(client, *courseIDPtr)
 	log.Println("Done")
 }
