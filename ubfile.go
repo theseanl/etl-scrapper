@@ -13,7 +13,7 @@ import (
 func ubfile(client *http.Client, id int64, instanceName string) error {
 	// http://etl.snu.ac.kr/mod/ubfile/view.php?id=XXXXX
 	log.Printf("Downloading file %v, id: %v\n", instanceName, id)
-	return downloadFile(client, etlPath(fmt.Sprintf("/mod/ubfile/view.php?id=%v", id)), instanceName)
+	return downloadFile(client, etlPath(fmt.Sprintf("/mod/ubfile/view.php?id=%v", id)), sanitizeFileName(instanceName))
 }
 
 func downloadFile(client *http.Client, url string, name string) error {

@@ -28,6 +28,7 @@ func downloadAssignment(client *http.Client, id int64, instanceName string) erro
 			return
 		}
 		filename := filepath.Join(instanceName, content.Text())
+		filename = sanitizeFileName(filename)
 		filename = strings.TrimSuffix(filename, filepath.Ext(filename))
 
 		err := downloadFile(client, href, filename)
